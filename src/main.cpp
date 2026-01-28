@@ -287,7 +287,7 @@ void opcontrol() {
       moveAll(fullSpeed,-fullSpeed, fullSpeed);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-      moveAll(fullSpeed, -fullSpeed, -fullSpeed);
+      moveAll(fullSpeed, -fullSpeed, fullSpeed);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     moveAll(fullSpeed, fullSpeed, fullSpeed);
