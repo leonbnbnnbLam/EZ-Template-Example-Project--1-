@@ -10,6 +10,15 @@ const int DRIVE_SPEED = 110;
 const int TURN_SPEED = 90;
 const int SWING_SPEED = 110;
 
+int fullSpeed = 127;
+
+void moveAll(int o_o = 0, int m = 0,int o = 0){
+  outake_outermost.move(o_o);
+  midRoller.move(m);
+  outake.move(o);
+
+}
+
 ///
 // Constants
 ///
@@ -59,12 +68,13 @@ void drive_example() {
 
   chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
+  
 
   chassis.pid_drive_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  chassis.pid_wait();
+
+
 }
 
 ///

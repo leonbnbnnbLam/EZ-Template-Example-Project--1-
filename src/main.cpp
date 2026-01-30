@@ -277,7 +277,7 @@ void opcontrol() {
     // . . .
 
     if ((master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && master.get_digital(pros::E_CONTROLLER_DIGITAL_R1))) {
-      outake_outermost.brake();
+      // outake_outermost.brake();
       outake.brake();
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
@@ -287,13 +287,17 @@ void opcontrol() {
       moveAll(fullSpeed,-fullSpeed, fullSpeed);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-      moveAll(fullSpeed, -fullSpeed, fullSpeed);
+      moveAll(fullSpeed, -fullSpeed, -fullSpeed);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
     moveAll(fullSpeed, fullSpeed, fullSpeed);
     }
     else {
       stopAll();
+    }
+
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+      autonomous();
     }
 
 
