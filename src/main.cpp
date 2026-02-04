@@ -1,4 +1,5 @@
 #include "main.h"
+#include "autons.hpp"
 #include "pros/misc.h"
 #include "pros/misc.hpp"
 #include "subsystems.hpp"
@@ -314,6 +315,10 @@ void opcontrol() {
       shovel.set_value(1);
     }
 
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)&&master.get_digital(pros::E_CONTROLLER_DIGITAL_B))
+    {
+      turn_example();
+    }
     // if(master.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
     //   shovelPneumatic.extend();
     // }
