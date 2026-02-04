@@ -7,14 +7,13 @@
 
 extern Drive chassis;
 
-// Your motors, sensors, etc. should go here.  Below are examples
+// Your motors, sensors, etc. shoulds go here.  Below are examples
 
-inline pros::Motor outake_outermost(11);
-inline pros::Motor midRoller(16);
-inline pros::Motor outake(15);
+inline pros::Motor intake(10);
+inline pros::Motor midRoller(2);
+inline pros::Motor outake(3);
 inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 
-inline pros::adi::Pneumatics hookPneumatic('A', false);
-inline pros::adi::Pneumatics shovelPneumatic('B', false);
-inline pros::adi::Pneumatics bordPneumatic('C', false);
+inline pros::adi::DigitalOut hook('E');
+inline pros::adi::DigitalOut shovel('G');

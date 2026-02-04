@@ -1,4 +1,5 @@
 #include "main.h"
+#include "subsystems.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -13,7 +14,7 @@ const int SWING_SPEED = 110;
 int fullSpeed = 127;
 
 void moveAll(int o_o = 0, int m = 0,int o = 0){
-  outake_outermost.move(o_o);
+  intake.move(o_o);
   midRoller.move(m);
   outake.move(o);
 

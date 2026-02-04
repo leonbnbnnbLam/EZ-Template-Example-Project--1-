@@ -8,24 +8,24 @@
 // https://ez-robotics.github.io/EZ-Template/
 /////
 
-void moveAll(int o_o = 0, int m = 0,int o = 0){
-  outake_outermost.move(o_o);
+void moveallintake(int i = 0, int m = 0,int o = 0){ 
+  intake.move(i);
   midRoller.move(m);
   outake.move(o);
-
 }
-int fullSpeed = 127;
+
+int fullspeedd = 127;
 
 void stopAll(){
-  outake_outermost.brake();
+  intake.brake();
   midRoller.brake();
   outake.brake();
 }
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {1, 2, 3},     // Left Chassis Ports (negative port will reverse it!)
-    {-4, -5, -6},  // Right Chassis Ports (negative port will reverse it!)
+    {-12, -13, -14},     // Left Chassis Ports (negative port will reverse it!)
+    {17, 18, 5},  // Right Chassis Ports (negative port will reverse it!)
 
     7,      // IMU Port
     4.125,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -84,7 +84,7 @@ void initialize() {
       {"Interference\n\nAfter driving forward, robot performs differently if interfered or not", interfered_example},
       {"Simple Odom\n\nThis is the same as the drive example, but it uses odom instead!", odom_drive_example},
       {"Pure Pursuit\n\nGo to (0, 30) and pass through (6, 10) on the way.  Come back to (0, 0)", odom_pure_pursuit_example},
-      {"Pure Pursuit Wait Until\n\nGo to (24, 24) but start running an outake_outermost once the robot passes (12, 24)", odom_pure_pursuit_wait_until_example},
+      {"Pure Pursuit Wait Until\n\nGo to (24, 24) but start running an intake once the robot passes (12, 24)", odom_pure_pursuit_wait_until_example},
       {"Boomerang\n\nGo to (0, 24, 45) then come back to (0, 0, 0)", odom_boomerang_example},
       {"Boomerang Pure Pursuit\n\nGo to (0, 24, 45) on the way to (24, 24) then come back to (0, 0, 0)", odom_boomerang_injected_pure_pursuit_example},
       {"Measure Offsets\n\nThis will turn the robot a bunch of times and calculate your offsets for your tracking wheels.", measure_offsets},
@@ -135,7 +135,7 @@ void autonomous() {
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-
+  
   /*
   Odometry and Pure Pursuit are not magic
 
@@ -262,7 +262,7 @@ void opcontrol() {
   while (true) {
     // Gives you some extras to make EZ-Template ezier
     pros::Controller master(pros::E_CONTROLLER_MASTER);
-    pros::adi::Pneumatics hook('a', false);
+
     
     ez_template_extras();
 
@@ -277,21 +277,19 @@ void opcontrol() {
     // . . .
 
     if ((master.get_digital(pros::E_CONTROLLER_DIGITAL_L1) && master.get_digital(pros::E_CONTROLLER_DIGITAL_R1))) {
-      // outake_outermost.brake();
-      outake.brake();
+      // intake.brake();
+      outake.move(-fullspeedd);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-      moveAll(fullSpeed, fullSpeed, -fullSpeed);
+      moveallintake(fullspeedd, fullspeedd, 0);
     } 
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-      moveAll(fullSpeed,-fullSpeed, fullSpeed);
+      moveallintake(fullspeedd,-fullspeedd, fullspeedd);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-      moveAll(fullSpeed, -fullSpeed, -fullSpeed);
+      moveallintake(fullspeedd, fullspeedd, -fullspeedd);
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-    moveAll(fullSpeed, fullSpeed, fullSpeed);
-    }
+    
     else {
       stopAll();
     }
@@ -302,26 +300,33 @@ void opcontrol() {
 
 
 
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-      hook.extend();
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
+      hook.set_value(0);
     }
     else {
-      hook.retract();
+      hook.set_value(1);
     }
 
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
-      shovelPneumatic.extend();
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+      shovel.set_value(0);
     }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
-      shovelPneumatic.retract();
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+      shovel.set_value(1);
     }
 
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
-      bordPneumatic.extend();
-    }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-      bordPneumatic.retract();
-    }
+    // if(master.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
+    //   shovelPneumatic.extend();
+    // }
+    // else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+    //   shovelPneumatic.retract();
+    // }
+
+    // if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+    //   bordPneumatic.extend();
+    // }
+    // else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
+    //   bordPneumatic.retract();
+    // }
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
