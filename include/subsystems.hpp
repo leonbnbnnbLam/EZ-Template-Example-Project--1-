@@ -3,6 +3,7 @@
 #include "EZ-Template/api.hpp"
 #include "api.h"
 #include "pros/adi.hpp"
+#include "pros/imu.hpp"
 #include "pros/misc.hpp"
 
 extern Drive chassis;
@@ -17,3 +18,6 @@ inline pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 inline pros::adi::DigitalOut hook('E');
 inline pros::adi::DigitalOut shovel('G');
+
+
+inline pros::IMU imu (5);
