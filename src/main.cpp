@@ -285,7 +285,7 @@ void opcontrol() {
       moveallintake(fullspeedd, fullspeedd, 0);
     } 
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-      moveallintake(fullspeedd,-fullspeedd, fullspeedd);
+      moveallintake(-fullspeedd,-fullspeedd, 0);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
       moveallintake(fullspeedd, fullspeedd, -fullspeedd);
