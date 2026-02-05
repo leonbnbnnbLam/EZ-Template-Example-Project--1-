@@ -309,10 +309,10 @@ void opcontrol() {
     }
 
     if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-      shovel.set_value(0);
-    }
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
       shovel.set_value(1);
+    }
+    else {
+      shovel.set_value(0);
     }
 
     if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)&&master.get_digital(pros::E_CONTROLLER_DIGITAL_B))
