@@ -308,10 +308,10 @@ void opcontrol() {
       hook.set_value(1);
     }
 
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
       shovel.set_value(1);
     }
-    else {
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B) ){
       shovel.set_value(0);
     }
 
