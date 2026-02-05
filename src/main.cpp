@@ -295,9 +295,9 @@ void opcontrol() {
       stopAll();
     }
 
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-      autonomous();
-    }
+    // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+    //   autonomous();
+    // }
 
 
 

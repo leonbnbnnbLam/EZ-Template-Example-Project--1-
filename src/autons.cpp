@@ -8,7 +8,7 @@
 
 // These are out of 127
 const int DRIVE_SPEED = 110;
-const int TURN_SPEED = 90;
+const int TURN_SPEED = 60;
 const int SWING_SPEED = 110;
 
 int fullSpeed = 127;
